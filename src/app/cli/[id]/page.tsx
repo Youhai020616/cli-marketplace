@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 import FavoriteButton from "@/components/FavoriteButton";
 
 interface PageProps {
@@ -170,7 +171,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
             prose-li:text-[#555]
             prose-p:text-[#555]
           ">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{readme}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{readme}</ReactMarkdown>
           </div>
         </div>
       ) : (
