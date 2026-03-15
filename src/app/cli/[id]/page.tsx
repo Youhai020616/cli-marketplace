@@ -1,10 +1,8 @@
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
 import FavoriteButton from "@/components/FavoriteButton";
+import ReadmeRenderer from "@/components/ReadmeRenderer";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -162,17 +160,7 @@ export default async function ToolDetailPage({ params }: PageProps) {
           <h2 className="font-pixel text-sm text-[#7c3aed] mb-4">
             $ cat README.md
           </h2>
-          <div className="prose prose-sm max-w-none font-pixel
-            prose-headings:text-[#7c3aed] prose-headings:font-pixel
-            prose-a:text-[#7c3aed] prose-a:no-underline hover:prose-a:underline
-            prose-code:text-[#6d28d9] prose-code:bg-[#f5f0ff] prose-code:px-1
-            prose-pre:bg-[#fafafa] prose-pre:border-2 prose-pre:border-[#e5e5e5]
-            prose-strong:text-[#1a1a1a]
-            prose-li:text-[#555]
-            prose-p:text-[#555]
-          ">
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{readme}</ReactMarkdown>
-          </div>
+          <ReadmeRenderer content={readme} fullName={tool.full_name} />
         </div>
       ) : (
         <div className="border-2 border-[#e5e5e5] bg-white p-6 text-center font-pixel text-sm text-[#999]">
