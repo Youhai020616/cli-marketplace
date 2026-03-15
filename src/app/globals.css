@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --pixel-purple: #7c3aed;
+  --pixel-purple-light: #a78bfa;
+  --pixel-purple-dark: #6d28d9;
+  --pixel-purple-bg: #f5f0ff;
+  --pixel-bg: #ffffff;
+  --pixel-card-bg: #fafafa;
+  --pixel-border: #e5e5e5;
+  --pixel-border-hover: #7c3aed;
+  --pixel-text: #1a1a1a;
+  --pixel-muted: #666666;
+  --pixel-dim: #999999;
+  --pixel-yellow: #eab308;
+  --pixel-code-bg: #f4f0ff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Pixel font class */
+.font-pixel {
+  font-family: var(--font-geist-pixel-square), var(--font-geist-mono), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Global pixel feel */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-pixel-square), var(--font-geist-mono), monospace;
+  background: var(--pixel-bg);
+  color: var(--pixel-text);
+}
+
+/* Pixelated images */
+.pixelated {
+  image-rendering: pixelated;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border: 1px solid #e5e5e5;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Blinking cursor effect */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink::after {
+  content: "█";
+  animation: blink 1s step-end infinite;
+  color: var(--pixel-purple);
+}
+
+/* Selection */
+::selection {
+  background: #7c3aed22;
+  color: #7c3aed;
 }
