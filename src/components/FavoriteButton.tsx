@@ -10,7 +10,7 @@ export default function FavoriteButton({ toolId }: { toolId: string }) {
   const supabase = createClient();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(({ data }: { data: { user: { id: string } | null } }) => {
       const uid = data.user?.id ?? null;
       setUserId(uid);
       if (uid) {
