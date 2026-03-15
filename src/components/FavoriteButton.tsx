@@ -20,7 +20,8 @@ export default function FavoriteButton({ toolId }: { toolId: string }) {
           .eq("user_id", uid)
           .eq("tool_id", toolId)
           .single()
-          .then(({ data }) => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .then(({ data }: any) => {
             setIsFavorited(!!data);
             setLoading(false);
           });
