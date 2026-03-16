@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "API Documentation",
+  description: "CLI Marketplace public REST API — query, search, and filter CLI tools programmatically.",
+  alternates: { canonical: "https://cli-marketplace.vercel.app/docs/api" },
+};
 
 export default function ApiDocsPage() {
   return (

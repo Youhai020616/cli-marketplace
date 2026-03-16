@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+
+export const metadata: Metadata = {
+  title: "CLI Tools Timeline & Statistics",
+  description: "Visualize CLI tool growth over time. See trends, category distribution, and activity statistics.",
+  alternates: { canonical: "https://cli-marketplace.vercel.app/timeline" },
+};
 import TimelineChart from "@/components/TimelineChart";
 import CategoryPieChart from "@/components/CategoryPieChart";
 

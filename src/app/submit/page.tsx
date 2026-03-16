@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import SubmitForm from "@/components/SubmitForm";
+
+export const metadata: Metadata = {
+  title: "Submit a CLI Tool",
+  description: "Submit a GitHub repository to CLI Marketplace. We'll automatically fetch its details and add it to our collection.",
+  alternates: { canonical: "https://cli-marketplace.vercel.app/submit" },
+};
 
 export default function SubmitPage() {
   return (

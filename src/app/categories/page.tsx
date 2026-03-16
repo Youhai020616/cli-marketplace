@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+
+export const metadata: Metadata = {
+  title: "Browse CLI Tools by Category",
+  description: "Explore CLI tools organized by category — AI Agent, DevOps, Development, Database, Network, Security, System, Git, Frontend, Data, and more.",
+  alternates: { canonical: "https://cli-marketplace.vercel.app/categories" },
+};
 
 async function getCategories() {
   const { data } = await supabase

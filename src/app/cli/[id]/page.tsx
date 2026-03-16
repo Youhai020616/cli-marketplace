@@ -1,8 +1,26 @@
+import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import FavoriteButton from "@/components/FavoriteButton";
 import ReadmeRenderer from "@/components/ReadmeRenderer";
+import { ToolJsonLd } from "@/components/JsonLd";
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const { data } = await supabase.from("cli_tools").select("name, full_name, description, stars, language").eq("id", id).single();
+  if (!data) return { title: "Tool Not Found" };
+  const desc = data.description || `${data.name} — a CLI tool on GitHub`;
+  return {
+    title: `${data.name} — ${data.language || "CLI"} tool (${data.stars >= 1000 ? (data.stars/1000).toFixed(1)+"k" : data.stars} ★)`,
+    description: `${desc} | ${data.full_name} — ${data.stars.toLocaleString()} stars on GitHub.`,
+    alternates: { canonical: `https://cli-marketplace.vercel.app/cli/${id}` },
+    openGraph: {
+      title: `${data.name} — ${desc}`,
+      description: `${data.full_name} — ${data.stars.toLocaleString()} ★ | ${data.language || "CLI tool"}`,
+    },
+  };
+}
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -61,6 +79,14 @@ export default async function ToolDetailPage({ params }: PageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <ToolJsonLd
+        name={tool.name}
+        description={tool.description || `${tool.name} — CLI tool`}
+        url={tool.html_url}
+        stars={tool.stars}
+        language={tool.language}
+        author={tool.owner_name}
+      />
       {/* Breadcrumb */}
       <div className="font-pixel text-xs text-[#999] mb-6">
         <Link href="/" className="text-[#7c3aed] hover:underline">

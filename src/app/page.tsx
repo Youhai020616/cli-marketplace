@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "CLI Marketplace — Discover CLI Tools for Developers",
+  description: "Browse 3,700+ open-source CLI tools from GitHub. Search by name, filter by category, sort by stars or recent activity.",
+  alternates: { canonical: "https://cli-marketplace.vercel.app" },
+};
 import SearchBar from "@/components/SearchBar";
 import SortToggle from "@/components/SortToggle";
 import PixelCard from "@/components/PixelCard";

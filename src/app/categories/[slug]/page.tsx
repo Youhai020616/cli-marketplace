@@ -1,7 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import PixelCard from "@/components/PixelCard";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const { data } = await supabase.from("categories").select("name, description, tool_count").eq("slug", slug).single();
+  if (!data) return { title: "Category Not Found" };
+  return {
+    title: `${data.name} CLI Tools (${data.tool_count})`,
+    description: `${data.description} — Browse ${data.tool_count} ${data.name} CLI tools on CLI Marketplace.`,
+    alternates: { canonical: `https://cli-marketplace.vercel.app/categories/${slug}` },
+  };
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
